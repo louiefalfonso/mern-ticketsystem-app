@@ -5,16 +5,8 @@ export const registerUser = async (req, res) => {
   try {
     const { name, email, password, isAdmin, role, title } = req.body;
 
-    // Validate input data
-    if (!name || !email || !password || !role || !title) {
-      return res.status(400).json({
-        status: false,
-        message: "Invalid user data",
-      });
-    }
-
-    // Check if email is already in use
     const userExist = await User.findOne({ email });
+
     if (userExist) {
       return res.status(400).json({
         status: false,
@@ -22,27 +14,25 @@ export const registerUser = async (req, res) => {
       });
     }
 
-    // Hash and salt the password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
     const user = await User.create({
       name,
       email,
-      password: hashedPassword,
-      isAdmin: false, // Set isAdmin to false by default
+      password,
+      isAdmin,
       role,
       title,
     });
 
     if (user) {
-      createJWT(res, user._id);
+      isAdmin ? createJWT(res, user._id) : null;
+
       user.password = undefined;
+
       res.status(201).json(user);
     } else {
-      return res.status(400).json({
-        status: false,
-        message: "Invalid user data",
-      });
+      return res
+        .status(400)
+        .json({ status: false, message: "Invalid user data" });
     }
   } catch (error) {
     console.log(error);
@@ -54,21 +44,12 @@ export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Validate input data
-    if (!email || !password) {
-      return res.status(400).json({
-        status: false,
-        message: "Invalid email or password",
-      });
-    }
-
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(401).json({
-        status: false,
-        message: "Invalid email or password",
-      });
+      return res
+        .status(401)
+        .json({ status: false, message: "Invalid email or password." });
     }
 
     if (!user?.isActive) {
@@ -78,20 +59,19 @@ export const loginUser = async (req, res) => {
       });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await user.matchPassword(password);
 
-    if (!isMatch) {
-      return res.status(401).json({
-        status: false,
-        message: "Invalid email or password",
-      });
+    if (user && isMatch) {
+      createJWT(res, user._id);
+
+      user.password = undefined;
+
+      res.status(200).json(user);
+    } else {
+      return res
+        .status(401)
+        .json({ status: false, message: "Invalid email or password" });
     }
-
-    createJWT(res, user._id);
-
-    user.password = undefined;
-
-    res.status(200).json(user);
   } catch (error) {
     console.log(error);
     return res.status(400).json({ status: false, message: error.message });
@@ -100,18 +80,9 @@ export const loginUser = async (req, res) => {
 
 export const logoutUser = async (req, res) => {
   try {
-    // Check if token exists in cookie
-    if (!req.cookies.token) {
-      return res
-        .status(200)
-        .json({ message: "No token found, logout successful" });
-    }
-
-    // Delete token from cookie
-    res.clearCookie("token", {
-      httpOnly: true,
-      secure: true, // Add secure flag to ensure cookie is deleted over HTTPS
-      sameSite: "strict", // Add sameSite flag to prevent CSRF attacks
+    res.cookie("token", "", {
+      htttpOnly: true,
+      expires: new Date(0),
     });
 
     res.status(200).json({ message: "Logout successful" });
@@ -121,56 +92,47 @@ export const logoutUser = async (req, res) => {
   }
 };
 
-export const updateUser = async (req, res) => {
+export const getAllUsers = async (req, res) => {
   try {
-    const { userId, isAdmin } = req.user;
-    const { _id, name, title, role, email } = req.body;
-
-    // Validate input data
-    if (!name || !title || !role || !email) {
-      return res
-        .status(400)
-        .json({ status: false, message: "Invalid user data" });
-    }
-
-    const id = isAdmin && userId === _id ? userId : isAdmin && userId !== _id ? _id : userId;
-
-    // Use findByIdAndUpdate to update user in a single database query
-    const updatedUser = await User.findByIdAndUpdate(id, { name, title, role, email }, { new: true });
-
-    if (!updatedUser) {
-      return res.status(404).json({ status: false, message: "User not found" });
-    }
-
-    updatedUser.password = undefined;
-
-    res.status(201).json({
-      status: true,
-      message: "Profile Updated Successfully.",
-      user: updatedUser,
-    });
+    const users = await User.find().select("name title role email isActive");
+    res.status(200).json(users);
   } catch (error) {
     console.log(error);
     return res.status(400).json({ status: false, message: error.message });
   }
 };
 
-export const getAllUsers = async (req, res) => {
+export const updateUser = async (req, res) => {
   try {
-    const users = await User.find().select("name title role email isActive");
+    const { userId, isAdmin } = req.user;
+    const { _id } = req.body;
 
-    if (!users) {
-      return res.status(404).json({
-        status: false,
-        message: "No users found",
+    const id =
+      isAdmin && userId === _id
+        ? userId
+        : isAdmin && userId !== _id
+        ? _id
+        : userId;
+
+    const user = await User.findById(id);
+
+    if (user) {
+      user.name = req.body.name || user.name;
+      user.title = req.body.title || user.title;
+      user.role = req.body.role || user.role;
+
+      const updatedUser = await user.save();
+
+      user.password = undefined;
+
+      res.status(201).json({
+        status: true,
+        message: "Profile Updated Successfully.",
+        user: updatedUser,
       });
+    } else {
+      res.status(404).json({ status: false, message: "User not found" });
     }
-
-    res.status(200).json({
-      status: true,
-      message: "Users retrieved successfully",
-      users,
-    });
   } catch (error) {
     console.log(error);
     return res.status(400).json({ status: false, message: error.message });
