@@ -2,10 +2,8 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
 import { useLoginMutation } from "../redux/slices/authApiSlice";
 import { setCredentials } from "../redux/slices/authSlice";
-
 import { Toaster, toast } from "react-hot-toast";
 import logo from "../assets/logo.png";
 import background from "../assets/background.jpg";
@@ -54,9 +52,6 @@ const Login = () => {
               <img src={logo} alt="logo" className="w-40" />
             </div>
             <div className="flex flex-col gap-y-5">
-              <h4 className="text-center ">
-                Cloud-Based Ticket System Platform{" "}
-              </h4>
               <Textbox
                 placeholder="Enter Email Address"
                 type="email"

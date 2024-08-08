@@ -52,7 +52,7 @@ const RootQuery = new GraphQLObjectType({
         return Project.findById(args.id);
       },
     },
-    products: {
+    projects: {
       type: new GraphQLList(ProjectType),
       resolve: (parent, args) => {
         return Project.find();

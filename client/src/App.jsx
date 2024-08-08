@@ -5,6 +5,9 @@ import Layout from "./components/common/Layout";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Dashboard from "./pages/Dashboard";
+import TicketsPage from "./pages/TicketsPage";
+import ProjectsPage from "./pages/ProjectsPage";
+import EmployeesPage from "./pages/EmployeesPage";
 
 const cache = new InMemoryCache({
   typePolicies: {
@@ -39,6 +42,9 @@ function App() {
           <Routes>
             <Route element={<Layout />}>
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/tickets" element={<TicketsPage />} />
+              <Route path="/projects" element={<ProjectsPage />} />
+              <Route path="/employees" element={<EmployeesPage/>} />
             </Route>
 
             <Route path="/login" element={<Login />} />

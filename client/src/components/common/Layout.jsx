@@ -7,8 +7,8 @@ import Navbar from '../common/Navbar'
 
 
 const Layout = () => {
-    const { user } = useSelector((state) => state.auth);
-    const location = useLocation();
+  const { user } = useSelector((state) => state.auth);
+  const location = useLocation();
     
   return user ? (
     <div className="w-full h-screen flex flex-col md:flex-row">
