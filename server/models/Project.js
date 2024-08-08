@@ -1,9 +1,15 @@
 import mongoose from "mongoose";
 
 const ProjectSchema = new mongoose.Schema({
-  name: { type: String, },
-  description: { type: String, },
-  date: { type: Date, default: new Date() },
+  name: { 
+    type: String, 
+  },
+  description: { 
+    type: String, 
+  },
+  date: { 
+    type: Date, 
+    default: new Date() },
   priority: {
     type: String,
     enum: ["High", "Medium", "Normal", "Low"],

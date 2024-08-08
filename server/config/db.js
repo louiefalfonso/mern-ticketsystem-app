@@ -11,17 +11,28 @@ const connectDB = async () => {
   }
 };
 
-export const createJWT = (res, userId) => {
-  const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
-    expiresIn: "1d",
-  });
+const COOKIE_MAX_AGE = 1 * 24 * 60 * 60 * 1000; // 1 day
 
-  res.cookie("token", token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV !== "development",
-    sameSite: "strict",
-    maxAge: 1 * 24 * 60 * 60 * 1000,
-  });
+export const createJWT = (res, userId) => {
+  if (!res || !userId) {
+    throw new Error("Invalid input: res and userId are required.");
+  }
+
+  try {
+    const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    });
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: COOKIE_MAX_AGE,
+    });
+  } catch (err) {
+    console.error("Error creating JWT:", err);
+    // returning an error response
+  }
 };
 
 export default connectDB;
