@@ -17,13 +17,15 @@ const GET_TICKETS = gql`
         priority
         status
       }
-      user {
+      employee {
         __typename
         id
         name
         email
-        title
-        role }
+        number
+        position
+        department
+        status }
       }  
     }
   }

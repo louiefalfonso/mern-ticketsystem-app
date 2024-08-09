@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
+const Employee = "Employee";
 
 const ProjectSchema = new mongoose.Schema({
-  name: { 
-    type: String, 
+  name: {
+    type: String,
   },
-  description: { 
-    type: String, 
+  description: {
+    type: String,
   },
-  date: {  type: Date, default: new Date() },
   priority: {
     type: String,
     enum: ["High", "Medium", "Normal", "Low"],
@@ -16,6 +16,7 @@ const ProjectSchema = new mongoose.Schema({
     type: String,
     enum: ["Not Started", "In Progress", "Completed"],
   },
+  employeeId: { type: mongoose.Schema.Types.ObjectId, ref: Employee },
 });
 
 export default mongoose.model("Project", ProjectSchema);

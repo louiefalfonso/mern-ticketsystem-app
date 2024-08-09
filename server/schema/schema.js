@@ -11,9 +11,22 @@ import {
 //mongoose models
 import Ticket from "../models/Ticket.js";
 import Project from "../models/Project.js";
-
+import Employee from "../models/Employee.js";
 
 // Types
+const EmployeeType = new GraphQLObjectType({
+  name: "Employee",
+  fields: () => ({
+    id: { type: GraphQLID },
+    name: { type: GraphQLString },
+    email: { type: GraphQLString },
+    number: { type: GraphQLString },
+    position: { type: GraphQLString },
+    department: { type: GraphQLString },
+    status: { type: GraphQLString },
+  }),
+});
+
 const ProjectType = new GraphQLObjectType({
   name: "Project",
   fields: () => ({
@@ -22,6 +35,19 @@ const ProjectType = new GraphQLObjectType({
     priority: { type: GraphQLString },
     description: { type: GraphQLString },
     status: { type: GraphQLString },
+    employee: {
+      type: EmployeeType,
+      resolve: (parent, args) => {
+        return Employee.findById(parent.employeeId);
+      },
+      id: { type: GraphQLID },
+      name: { type: GraphQLString },
+      email: { type: GraphQLString },
+      number: { type: GraphQLString },
+      position: { type: GraphQLString },
+      department: { type: GraphQLString },
+      status: { type: GraphQLString },
+    },
   }),
 });
 
@@ -34,8 +60,30 @@ const TicketType = new GraphQLObjectType({
     priority: { type: GraphQLString },
     type: { type: GraphQLString },
     status: { type: GraphQLString },
-    userId: { type: GraphQLID },
-    projectId: { type: GraphQLID },
+    project: { 
+      type: ProjectType,
+      resolve: (parent, args) => {
+        return Project.findById(parent.projectId);
+      },
+      id: { type: GraphQLID },
+      name: { type: GraphQLString },
+      description: { type: GraphQLString },
+      priority: { type: GraphQLString },
+      status: { type: GraphQLString },
+    },
+    employee: {
+      type: EmployeeType,
+      resolve: (parent, args) => {
+        return Employee.findById(parent.employeeId);
+      },
+      id: { type: GraphQLID },
+      name: { type: GraphQLString },
+      email: { type: GraphQLString },
+      number: { type: GraphQLString },
+      position: { type: GraphQLString },
+      department: { type: GraphQLString },
+      status: { type: GraphQLString },
+    },
   }),
 });
 
@@ -43,6 +91,19 @@ const TicketType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   fields: {
+    employee: {
+      type: EmployeeType,
+      args: { id: { type: GraphQLID } },
+      resolve: (parent, args) => {
+        return Employee.findById(args.id);
+      },
+    },
+    employees: {
+      type: new GraphQLList(EmployeeType),
+      resolve: (parent, args) => {
+        return Employee.find();
+      },
+    },
     project: {
       type: ProjectType,
       args: { id: { type: GraphQLID } },
@@ -68,11 +129,19 @@ const RootQuery = new GraphQLObjectType({
       resolve: (parent, args) => {
         return Ticket.find();
       },
-    }
+    },
   },
 });
 
 //Enums
+const EmployeeStatusEnum = new GraphQLEnumType({
+  name: "EmployeeStatus",
+  values: {
+    ACTIVE: { value: "Active" },
+    INACTIVE: { value: "In Active" },
+  },
+});
+
 const ProjectStatusEnum = new GraphQLEnumType({
   name: "ProjectStatus",
   values: {
@@ -140,6 +209,7 @@ const mutation = new GraphQLObjectType({
           type: ProjectPriorityEnum,
           defaultValue: "NORMAL",
         },
+        employeeId: { type: new GraphQLNonNull(GraphQLID) },
       },
       resolve: (parent, args) => {
         const project = new Project({
@@ -147,6 +217,7 @@ const mutation = new GraphQLObjectType({
           description: args.description,
           status: args.status,
           priority: args.priority,
+          employeeId: args.employeeId,
         });
         return project.save();
       },
@@ -174,6 +245,7 @@ const mutation = new GraphQLObjectType({
           type: ProjectPriorityEnum,
           defaultValue: "NORMAL",
         },
+        employeeId: { type: GraphQLID },
       },
       resolve(parent, args) {
         return Project.findByIdAndUpdate(
@@ -184,6 +256,7 @@ const mutation = new GraphQLObjectType({
               description: args.description,
               status: args.status,
               priority: args.priority,
+              employeeId: args.employeeId,
             },
           },
           { new: true }
@@ -208,7 +281,7 @@ const mutation = new GraphQLObjectType({
           defaultValue: "ASSIGNED",
         },
         projectId: { type: new GraphQLNonNull(GraphQLID) },
-        userId: { type: new GraphQLNonNull(GraphQLID) },
+        employeeId: { type: new GraphQLNonNull(GraphQLID) },
       },
       resolve: (parent, args) => {
         const ticket = new Ticket({
@@ -218,7 +291,7 @@ const mutation = new GraphQLObjectType({
           type: args.type,
           status: args.status,
           projectId: args.projectId,
-          userId: args.userId,
+          employeeId: args.employeeId,
         });
         return ticket.save();
       },
@@ -251,7 +324,7 @@ const mutation = new GraphQLObjectType({
           defaultValue: "ASSIGNED",
         },
         projectId: { type: new GraphQLNonNull(GraphQLID) },
-        userId: { type: new GraphQLNonNull(GraphQLID) },
+        employeeId: { type: new GraphQLNonNull(GraphQLID) },
       },
       resolve(parent, args) {
         return Ticket.findByIdAndUpdate(
@@ -264,7 +337,72 @@ const mutation = new GraphQLObjectType({
               type: args.type,
               status: args.status,
               projectId: args.projectId,
-              userId: args.userId,
+              employeeId: args.employeeId,
+            },
+          },
+          { new: true }
+        );
+      },
+    },
+    addEmployee: {
+      type: EmployeeType,
+      args: {
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        email: { type: new GraphQLNonNull(GraphQLString) },
+        number: { type: new GraphQLNonNull(GraphQLString) },
+        position: { type: new GraphQLNonNull(GraphQLString) },
+        department: { type: new GraphQLNonNull(GraphQLString) },
+        status: {
+          type: EmployeeStatusEnum,
+          defaultValue: "ACTIVE",
+        },
+      },
+      resolve: (parent, args) => {
+        const employee = new Employee({
+          name: args.name,
+          email: args.email,
+          number: args.number,
+          position: args.position,
+          department: args.department,
+          status: args.status,
+        });
+        return employee.save();
+      },
+    },
+    deleteEmployee: {
+      type: EmployeeType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve(parent, args) {
+        return Employee.findByIdAndDelete(args.id);
+      },
+    },
+    updateEmployee: {
+      type: EmployeeType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        name: { type: GraphQLString },
+        email: { type: GraphQLString },
+        number: { type: GraphQLString },
+        position: { type: GraphQLString },
+        department: { type: GraphQLString },
+        status: {
+          type: EmployeeStatusEnum,
+          defaultValue: "ACTIVE",
+        },
+      },
+      resolve(parent, args) {
+        return Employee.findByIdAndUpdate(
+          args.id,
+          {
+            $set: {
+              name: args.name,
+              email: args.email,
+              number: args.number,
+              position: args.position,
+              department: args.department,
+              status: args.status,
             },
           },
           { new: true }

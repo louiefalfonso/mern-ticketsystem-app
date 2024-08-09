@@ -14,46 +14,64 @@ const ADD_PROJECT = gql`
     $description: String!
     $status: ProjectStatus!
     $priority: ProjectPriority!
+    $employeeId: ID!
   ) {
     addProject(
       name: $name
       description: $description
       priority: $priority
       status: $status
+      employeeId: $employeeId
     ) {
-      id
       name
       description
       priority
       status
+      employee {
+        __typename
+        name
+        email
+        number
+        position
+        department
+        status
+      }
     }
   }
 `;
 
 const UPDATE_PROJECT = gql`
-  mutation addProject(
+  mutation updateProject(
     $id: ID!
     $name: String!
-    $date: String!
     $description: String!
     $status: ProjectStatus!
     $priority: ProjectPriority!
+    $employeeId: ID!
   ) {
     updateProject(
+      id: $id
       name: $name
       description: $description
       priority: $priority
       status: $status
+      employeeId: $employeeId
     ) {
-      id
       name
       description
       priority
       status
+      employee {
+        __typename
+        name
+        email
+        number
+        position
+        department
+        status
+      }
     }
   }
 `;
-
-
 
 export { DELETE_PROJECT, ADD_PROJECT, UPDATE_PROJECT };

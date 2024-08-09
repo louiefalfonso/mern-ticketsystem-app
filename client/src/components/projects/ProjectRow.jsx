@@ -1,6 +1,5 @@
 import React from 'react'
 import { useQuery } from "@apollo/client";
-
 import { GET_PROJECT } from "../../queries/projectQueries";
 import { useNavigate } from "react-router-dom";
 import { TbListDetails } from "react-icons/tb";

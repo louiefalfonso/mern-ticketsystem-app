@@ -8,6 +8,16 @@ const GET_PROJECTS = gql`
       description
       priority
       status
+      employee {
+        __typename
+        id
+        name
+        email
+        number
+        position
+        department
+        status
+      }
     }
   }
 `;
@@ -20,6 +30,16 @@ const GET_PROJECT = gql`
       description
       priority
       status
+      employee {
+          __typename
+          id
+          name
+          email
+          number
+          position
+          department
+          status
+      }
     }
   }
 `;

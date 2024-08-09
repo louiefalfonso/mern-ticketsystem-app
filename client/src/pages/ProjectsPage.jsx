@@ -6,7 +6,6 @@ import Projects from "../components/projects/Projects";
 import AddNewProject from "../components/projects/AddNewProject";
 
 const ProjectsPage = () => {
-
   const [open, setOpen] = useState(false);
 
   return (

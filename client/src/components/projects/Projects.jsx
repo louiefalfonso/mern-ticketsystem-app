@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { useQuery } from "@apollo/client";
 import { GET_PROJECTS, GET_PROJECT } from "../../queries/projectQueries";
 import Spinner from "../common/Spinner";

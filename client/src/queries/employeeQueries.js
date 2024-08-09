@@ -6,10 +6,10 @@ const GET_EMPLOYEES = gql`
       id
       name
       email
-      title
-      role
-      isAdmin
-      isActive
+      number
+      position
+      department
+      status
     }
   }
 `;
@@ -20,10 +20,10 @@ const GET_EMPLOYEE = gql`
       id
       name
       email
-      title
-      role
-      isAdmin
-      isActive
+      number
+      position
+      department
+      status
     }
   }
 `;
