@@ -18,7 +18,7 @@ const ProjectsPage = () => {
             label="Add New Project"
             onClick={() => setOpen(true)}
             icon={<IoMdAdd className="text-lg" />}
-            className="flex flex-row-reverse gap-1 items-center bg-red-600 text-white rounded-md 2xl:py-2.5"
+            className="flex flex-row-reverse gap-1 items-center bg-black text-white rounded-md 2xl:py-2.5"
           />
         }
       </div>

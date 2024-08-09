@@ -9,9 +9,9 @@ import {
 } from "graphql";
 
 //mongoose models
-
 import Ticket from "../models/Ticket.js";
 import Project from "../models/Project.js";
+
 
 // Types
 const ProjectType = new GraphQLObjectType({
@@ -19,7 +19,6 @@ const ProjectType = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
-    date: { type: GraphQLString },
     priority: { type: GraphQLString },
     description: { type: GraphQLString },
     status: { type: GraphQLString },
@@ -32,7 +31,6 @@ const TicketType = new GraphQLObjectType({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
     description: { type: GraphQLString },
-    date: { type: GraphQLString },
     priority: { type: GraphQLString },
     type: { type: GraphQLString },
     status: { type: GraphQLString },
@@ -133,7 +131,6 @@ const mutation = new GraphQLObjectType({
       type: ProjectType,
       args: {
         name: { type: new GraphQLNonNull(GraphQLString) },
-        date: { type: new GraphQLNonNull(GraphQLString) },
         description: { type: new GraphQLNonNull(GraphQLString) },
         status: {
           type: ProjectStatusEnum,
@@ -147,7 +144,6 @@ const mutation = new GraphQLObjectType({
       resolve: (parent, args) => {
         const project = new Project({
           name: args.name,
-          date: args.date,
           description: args.description,
           status: args.status,
           priority: args.priority,
@@ -169,7 +165,6 @@ const mutation = new GraphQLObjectType({
       args: {
         id: { type: new GraphQLNonNull(GraphQLID) },
         name: { type: GraphQLString },
-        date: { type: GraphQLString },
         description: { type: GraphQLString },
         status: {
           type: ProjectStatusEnum,
@@ -186,7 +181,6 @@ const mutation = new GraphQLObjectType({
           {
             $set: {
               name: args.name,
-              date: args.date,
               description: args.description,
               status: args.status,
               priority: args.priority,
@@ -201,7 +195,6 @@ const mutation = new GraphQLObjectType({
       args: {
         name: { type: new GraphQLNonNull(GraphQLString) },
         description: { type: new GraphQLNonNull(GraphQLString) },
-        date: { type: new GraphQLNonNull(GraphQLString) },
         priority: {
           type: TicketPriorityEnum,
           defaultValue: "NORMAL",
@@ -221,7 +214,6 @@ const mutation = new GraphQLObjectType({
         const ticket = new Ticket({
           name: args.name,
           description: args.description,
-          date: args.date,
           priority: args.priority,
           type: args.type,
           status: args.status,
@@ -245,7 +237,6 @@ const mutation = new GraphQLObjectType({
       args: {
         id: { type: new GraphQLNonNull(GraphQLID) },
         name: { type: GraphQLString },
-        date: { type: GraphQLString },
         description: { type: GraphQLString },
         priority: {
           type: TicketPriorityEnum,
@@ -268,7 +259,6 @@ const mutation = new GraphQLObjectType({
           {
             $set: {
               name: args.name,
-              date: args.date,
               description: args.description,
               priority: args.priority,
               type: args.type,

@@ -11,6 +11,11 @@ const ProjectRow = ({project}) => {
       skip: true,
     });
 
+    const navigate = useNavigate();
+    const viewProject = () => {
+      navigate(`/projects/${project.id}`);
+    };
+
   return (
     <>
       <React.Fragment>
@@ -40,7 +45,7 @@ const ProjectRow = ({project}) => {
               <p className="text-base text-black">
                 <button
                   className="text-slate-950 hover:text-slate-950"
-                  //onClick={viewOrder}
+                  onClick={viewProject}
                 >
                   <TbListDetails />
                 </button>

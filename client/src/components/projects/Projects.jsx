@@ -21,7 +21,7 @@ const Projects = () => {
             <table className="w-full">
               <thead className="border-b border-gray-300 ">
                 <tr className="text-black text-left">
-                  <th className="py-2">Product Id</th>
+                  <th className="py-2">Project Id</th>
                   <th className="py-2">Project Name</th>
                   <th className="py-2">Priority</th>
                   <th className="py-2">Status</th>

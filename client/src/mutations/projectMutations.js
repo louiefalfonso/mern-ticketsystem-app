@@ -12,21 +12,18 @@ const ADD_PROJECT = gql`
   mutation addProject(
     $name: String!
     $description: String!
-    $date: String!
     $status: ProjectStatus!
     $priority: ProjectPriority!
   ) {
     addProject(
       name: $name
       description: $description
-      date: $date
       priority: $priority
       status: $status
     ) {
       id
       name
       description
-      date
       priority
       status
     }
@@ -45,14 +42,12 @@ const UPDATE_PROJECT = gql`
     updateProject(
       name: $name
       description: $description
-      date: $date
       priority: $priority
       status: $status
     ) {
       id
       name
       description
-      date
       priority
       status
     }

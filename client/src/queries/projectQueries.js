@@ -6,7 +6,6 @@ const GET_PROJECTS = gql`
       id
       name
       description
-      date
       priority
       status
     }
@@ -19,7 +18,6 @@ const GET_PROJECT = gql`
       id
       name
       description
-      date
       priority
       status
     }

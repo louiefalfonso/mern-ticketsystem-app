@@ -6,7 +6,6 @@ const GET_TICKETS = gql`
       id
       name
       description
-      date
       priority
       type
       status
@@ -15,7 +14,6 @@ const GET_TICKETS = gql`
         id
         name
         description
-        date
         priority
         status
       }
@@ -37,7 +35,6 @@ const GET_TICKET = gql`
       id
       name
       description
-      date
       priority
       type
       status
@@ -46,7 +43,6 @@ const GET_TICKET = gql`
         id
         name
         description
-        date
         priority
         status
       }

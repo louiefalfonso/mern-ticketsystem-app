@@ -8,10 +8,9 @@ import { ADD_PROJECT } from "../../mutations/projectMutations";
 import { GET_PROJECTS } from "../../queries/projectQueries";
 
 const AddNewProject = ({ open, setOpen }) => {
-    
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const [status, setStatus] = useState("NEW");
   const [priority, setPriority] = useState("NORMAL");
 
