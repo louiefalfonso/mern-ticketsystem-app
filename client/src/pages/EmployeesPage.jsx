@@ -4,6 +4,7 @@ import Title from "../components/common/Title";
 import Button from "../components/common/Button";
 import AddNewEmployee from "../components/employees/AddNewEmployee";
 import Employees from "../components/employees/Employees";
+import UpdateEmployee from "../components/employees/UpdateEmployee";
 
 const EmployeesPage = () => {
   const [open, setOpen] = useState(false);
@@ -24,7 +25,7 @@ const EmployeesPage = () => {
       <div className="flex items-center justify-between mb-8 w-full bg-white p-4 rounded shadow-sm">
         <div className="w-full md:px-1 px-0 mb-6">
           <div className="overflow-x-auto">
-            <Employees/>
+            <Employees />
           </div>
         </div>
       </div>

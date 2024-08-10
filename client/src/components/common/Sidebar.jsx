@@ -8,7 +8,7 @@ import { Toaster, toast } from "react-hot-toast";
 import { useLogoutMutation } from "../../redux/slices/authApiSlice";
 import { logout } from "../../redux/slices/authSlice";
 import { useNavigate } from "react-router-dom";
-import { BsBasket } from "react-icons/bs";
+import { BsBuildingGear } from "react-icons/bs";
 import clsx from "clsx";
 import logo from "../../assets/logo.png";
 
@@ -26,7 +26,7 @@ const linkData = [
   {
     label: "Projects",
     link: "projects",
-    icon: <BsBasket />,
+    icon: <BsBuildingGear />,
   },
   {
     label: "Employees",

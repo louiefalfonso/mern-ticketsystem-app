@@ -47,6 +47,7 @@ const UPDATE_EMPLOYEE = gql`
     $status: EmployeeStatus!
   ) {
     updateEmployee(
+      id: $id
       name: $name
       email: $email
       number: $number

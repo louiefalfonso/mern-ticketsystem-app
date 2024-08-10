@@ -2,9 +2,7 @@ import React from 'react'
 import { useQuery } from "@apollo/client";
 import { GET_PROJECTS, GET_PROJECT } from "../../queries/projectQueries";
 import Spinner from "../common/Spinner";
-import { Toaster } from "react-hot-toast";
 import ProjectRow from "./ProjectRow";
-
 
 const Projects = () => {
 
@@ -16,12 +14,12 @@ const Projects = () => {
     <>
       {!loading && !error && (
         <>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center ">
             <table className="w-full">
               <thead className="border-b border-gray-300 ">
                 <tr className="text-black text-left">
-                  <th className="py-2">Project Id</th>
                   <th className="py-2">Project Name</th>
+                  <th className="py-2">Assigned Employee</th>
                   <th className="py-2">Priority</th>
                   <th className="py-2">Status</th>
                 </tr>
@@ -35,7 +33,6 @@ const Projects = () => {
           </div>
         </>
       )}
-      <Toaster />
     </>
   );
 }

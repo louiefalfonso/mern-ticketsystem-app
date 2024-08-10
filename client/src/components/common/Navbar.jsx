@@ -2,6 +2,7 @@ import React from 'react'
 import { MdOutlineSearch } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { setOpenSidebar } from "../../redux/slices/authSlice";
+import AdminUser from "./AdminUser";
 
 const Navbar = () => {
     const { user } = useSelector((state) => state.auth);
@@ -27,7 +28,7 @@ const Navbar = () => {
           </div>
         </div>
         <div className="flex gap-2 items-center">
-          AdminUser
+          <AdminUser/>
         </div>
       </div>
     </>

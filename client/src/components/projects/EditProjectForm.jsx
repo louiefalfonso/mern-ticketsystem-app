@@ -1,4 +1,3 @@
-import { DialogTitle } from "@headlessui/react";
 import React, { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_PROJECT } from "../../queries/projectQueries";
@@ -170,7 +169,7 @@ const EditProjectForm = ({ project }) => {
           <div className="col-span-full mt-4">
             <button
               type="submit"
-              className="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orang-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
+              className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orang-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
             >
               Update Project Details
             </button>

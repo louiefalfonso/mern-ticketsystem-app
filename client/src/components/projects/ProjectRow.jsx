@@ -21,12 +21,12 @@ const ProjectRow = ({project}) => {
         <tr className="border-b border-gray-300 text-gray-600 hover:bg-gray-300/10">
           <td className="py-2">
             <div className="flex items-center gap-2">
-              <p className="text-base text-black">{project.id}</p>
+              <p className="text-base text-black">{project.name}</p>
             </div>
           </td>
           <td className="py-2">
             <div className="flex items-center gap-2">
-              <p className="text-base text-black">{project.name}</p>
+              <p className="text-base text-black">{project.employee.name}</p>
             </div>
           </td>
           <td className="py-2">
