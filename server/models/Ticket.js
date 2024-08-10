@@ -1,11 +1,10 @@
 import mongoose from "mongoose";
-const User = "User";
+const Employee = "Employee";
 const Project = "Project";
 
 const TicketSchema = new mongoose.Schema({
   name: { type: String },
   description: { type: String },
-  date: { type: Date, default: new Date() },
   priority: {
     type: String,
     enum: ["High", "Medium", "Normal", "Low"],
@@ -14,9 +13,10 @@ const TicketSchema = new mongoose.Schema({
     type: String,
     enum: [
       "Service Request",
-      "Incident Ticket",
-      "Problem Ticket",
-      "Change Request Ticket",
+      "Incident Report",
+      "Problem Issues",
+      "Replacement Request",
+      "Other Changes",
     ],
   },
   status: {
@@ -31,7 +31,7 @@ const TicketSchema = new mongoose.Schema({
     ],
   },
   projectId: { type: mongoose.Schema.Types.ObjectId, ref: Project },
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: User },
+  employeeId: { type: mongoose.Schema.Types.ObjectId, ref: Employee },
 });
 
 export default mongoose.model("Ticket", TicketSchema);

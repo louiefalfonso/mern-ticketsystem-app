@@ -1,11 +1,8 @@
 import React from 'react'
 import Spinner from "../common/Spinner";
-import { Toaster } from "react-hot-toast";
 import { useQuery } from "@apollo/client";
 import { GET_EMPLOYEES } from "../../queries/employeeQueries";
 import EmployeeRow from './EmployeeRow';
-import UpdateEmployee from "./UpdateEmployee";
-
 
 const Employees = () => {
     const { loading, error, data } = useQuery(GET_EMPLOYEES);

@@ -175,9 +175,10 @@ const TicketTypeEnum = new GraphQLEnumType({
   name: "TicketType",
   values: {
     SERVICE: { value: "Service Request" },
-    INCIDENT: { value: "Incident Ticket" },
-    PROBLEM: { value: "Problem Ticket" },
-    CHANGE: { value: "Change Request Ticket" },
+    INCIDENT: { value: "Incident Report" },
+    PROBLEM: { value: "Problem Issues" },
+    REPLACEMENT: { value: "Replacement Request" },
+    CHANGE: { value: "Other Changes" },
   },
 });
 
@@ -188,7 +189,7 @@ const TicketStatusEnum = new GraphQLEnumType({
     INPROGRESS: { value: "In Progress" },
     INREVIEW: { value: "In Review" },
     CLOSEDWFX: { value: "Closed (Won't Fix)" },
-    CLOSED: { value: "Closed (Won't Fix)" },
+    CLOSED: { value: "Closed" },
   },
 });
 

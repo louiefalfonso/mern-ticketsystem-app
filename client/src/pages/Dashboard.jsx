@@ -1,5 +1,6 @@
 import React from 'react'
 import Title from "../components/common/Title";
+import ProjectTable from '../components/projects/ProjectTable';
 
 const Dashboard = () => {
   return (
@@ -11,7 +12,9 @@ const Dashboard = () => {
         <div className="overflow-x-auto">Ticket Table</div>
       </div>
       <div className="w-full bg-white my-4 p-4 rounded shadow-sm">
-        <div className="overflow-x-auto">Project Tables</div>
+        <div className="overflow-x-auto">
+          <ProjectTable/>
+        </div>
       </div>
     </div>
   );

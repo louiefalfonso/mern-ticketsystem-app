@@ -37,7 +37,7 @@ const UpdateEmployee = ({ open, setOpen, employee }) => {
         if (!name || !email || !number || !position || !department || !status) {
             return alert("Please fill out all fields");
         }
-
+        
         updateEmployee(name, email, number, position, department, status);
         setName("");
         setEmail("");

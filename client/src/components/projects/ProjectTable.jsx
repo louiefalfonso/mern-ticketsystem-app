@@ -1,11 +1,10 @@
-import React from 'react'
+import React from "react";
 import { useQuery } from "@apollo/client";
 import { GET_PROJECTS } from "../../queries/projectQueries";
 import Spinner from "../common/Spinner";
-import ProjectRow from "./ProjectRow";
+import ProjectList from "./ProjectList";
 
-const Projects = () => {
-
+const ProjectTable = () => {
      const { loading, error, data } = useQuery(GET_PROJECTS);
      if (loading) return <Spinner />;
      if (error) return <p>Something Went Wrong</p>;
@@ -26,7 +25,7 @@ const Projects = () => {
               </thead>
               <tbody>
                 {data.projects.map((project, index) => (
-                  <ProjectRow key={index} project={project} />
+                  <ProjectList key={index} project={project} />
                 ))}
               </tbody>
             </table>
@@ -35,6 +34,6 @@ const Projects = () => {
       )}
     </>
   );
-}
+};
 
-export default Projects
+export default ProjectTable;

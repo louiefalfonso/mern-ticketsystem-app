@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 const GET_TICKETS = gql`
-  query getTickets {
+  query GetTickets {
     tickets {
       id
       name
@@ -25,14 +25,14 @@ const GET_TICKETS = gql`
         number
         position
         department
-        status }
-      }  
+        status
+      }
     }
   }
 `;
 
 const GET_TICKET = gql`
-  query getTicket($id: ID!) {
+  query GetTicket($id: ID!) {
     ticket(id: $id) {
       id
       name
@@ -48,14 +48,18 @@ const GET_TICKET = gql`
         priority
         status
       }
-      user {
+      employee {
         __typename
         id
         name
         email
-        title
-        role }
+        number
+        position
+        department
+        status
+      }
     }
   }
 `;
+
 export { GET_TICKETS, GET_TICKET };
