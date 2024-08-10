@@ -20,7 +20,7 @@ const DeleteProjectButton = ({ projectId }) => {
 
   return (
     <Button
-      label="Delete"
+      label="Delete This Project"
       onClick={deleteProject}
       className="flex flex-row-reverse gap-1 items-center bg-red-600 text-white rounded-md 2xl:py-2.5"
     />

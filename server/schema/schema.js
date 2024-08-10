@@ -188,7 +188,6 @@ const TicketStatusEnum = new GraphQLEnumType({
     ASSIGNED: { value: "Assigned" },
     INPROGRESS: { value: "In Progress" },
     INREVIEW: { value: "In Review" },
-    CLOSEDWFX: { value: "Closed (Won't Fix)" },
     CLOSED: { value: "Closed" },
   },
 });

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useQuery } from "@apollo/client";
 import { GET_TICKET } from "../../queries/ticketQueries";
+import { useNavigate } from "react-router-dom";
 import { TbListDetails } from "react-icons/tb";
 
 const TicketRow = ({ticket}) => {
@@ -8,6 +9,11 @@ const TicketRow = ({ticket}) => {
       variables: { id: ticket.id },
       skip: true,
     });
+    const navigate = useNavigate();
+    const viewTicket = () => {
+      navigate(`/tickets/${ticket.id}`);
+    };
+
   return (
     <>
       <React.Fragment>
@@ -29,12 +35,19 @@ const TicketRow = ({ticket}) => {
           </td>
           <td className="py-2">
             <div className="flex items-center gap-2">
-              <p className="text-base text-black">{ticket.type}</p>
+              <p className="text-base text-black">{ticket.priority}</p>
             </div>
           </td>
           <td className="py-2">
             <div className="flex items-center gap-2">
-              <p className="text-base text-black">{ticket.priority}</p>
+              <p className="text-base text-black">
+                <button
+                  className="text-slate-950 hover:text-slate-950"
+                  onClick={viewTicket}
+                >
+                  <TbListDetails />
+                </button>
+              </p>
             </div>
           </td>
         </tr>

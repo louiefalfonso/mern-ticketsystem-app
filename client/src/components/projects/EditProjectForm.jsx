@@ -3,12 +3,12 @@ import { useMutation, useQuery } from "@apollo/client";
 import { GET_PROJECT } from "../../queries/projectQueries";
 import { UPDATE_PROJECT } from "../../mutations/projectMutations";
 import { GET_EMPLOYEES } from "../../queries/employeeQueries";
-import { toast } from "react-hot-toast";
+import { Toaster,toast } from "react-hot-toast";
 
 const EditProjectForm = ({ project }) => {
   const [name, setName] = useState(project.name);
   const [description, setDescription] = useState(project.description);
-  const [employeeId, setEmployeeId] = useState(project.employeeId); 
+  const [employeeId, setEmployeeId] = useState(project.employee.id); 
   const [status, setStatus] = useState(() => {
     switch (project.status) {
       case "Not Started":
@@ -58,7 +58,7 @@ const EditProjectForm = ({ project }) => {
     }
 
     updateProject(name, description, status, priority, employeeId);
-    //toast.success("Project Update Complete!");
+    toast.success("Project Update Complete!");
   };
 
   return (

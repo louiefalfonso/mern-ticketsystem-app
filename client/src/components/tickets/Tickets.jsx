@@ -18,10 +18,9 @@ const Tickets = () => {
             <table className="w-full">
               <thead className="border-b border-gray-300 ">
                 <tr className="text-black text-left">
-                  <th className="py-2">Ticket Name:</th>
-                  <th className="py-2">For Project:</th>
-                  <th className="py-2">Assigned to:</th>
-                  <th className="py-2">Type</th>
+                  <th className="py-2">Ticket Name</th>
+                  <th className="py-2">For Project</th>
+                  <th className="py-2">Assigned to</th>
                   <th className="py-2">Priority:</th>
                 </tr>
               </thead>

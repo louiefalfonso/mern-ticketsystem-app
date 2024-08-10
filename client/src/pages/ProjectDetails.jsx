@@ -5,10 +5,10 @@ import Spinner from '../components/common/Spinner';
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { GET_PROJECT } from "../queries/projectQueries";
-import DeleteProjectButton from '../components/projects/DeleteProjectButton';
 import { GET_EMPLOYEES } from "../queries/employeeQueries";
 import { Toaster, toast } from "react-hot-toast";
 import EditProjectForm from '../components/projects/EditProjectForm';
+import DeleteProjectButton from "../components/projects/DeleteProjectButton";
 
 
 const ProjectDetails = () => {
@@ -86,12 +86,6 @@ const ProjectDetails = () => {
                   </p>
                 </div>
               </td>
-
-              <td className="py-2">
-                <div className="flex ml-10">
-                  <DeleteProjectButton projectId={data.project.id} />
-                </div>
-              </td>
             </tr>
           </tbody>
         </table>
@@ -121,6 +115,9 @@ const ProjectDetails = () => {
             <div className="p-4 border-t border-gray-200">
               <p className="text-gray-900 font-bold">Project Description:</p>
               <p className="text-gray-900">{project.description}</p>
+            </div>
+            <div className="p-4 border-t border-gray-200">
+              <DeleteProjectButton projectId={data.project.id} />
             </div>
           </div>
         </div>

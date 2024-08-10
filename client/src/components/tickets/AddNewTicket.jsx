@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { DialogTitle } from "@headlessui/react";
 import ModalWrapper from "../common/ModalWrapper";
 import { useMutation, useQuery } from "@apollo/client";
-import { Toaster, toast } from "react-hot-toast";
+import { Toaster,toast } from "react-hot-toast";
 import { ADD_TICKET } from "../../mutations/ticketMutations";
 import { GET_EMPLOYEES } from "../../queries/employeeQueries";
 import { GET_PROJECTS } from "../../queries/projectQueries";
@@ -65,7 +65,7 @@ const AddNewTicket = ({ open, setOpen }) => {
         setEmployeeId("");
         setProjectId("");
         toast.success("Add New Ticket Complete!");
-        //window.location.reload();
+        window.location.reload();
     };
     
   return (
@@ -175,7 +175,6 @@ const AddNewTicket = ({ open, setOpen }) => {
                     <option value="ASSIGNED">Assigned</option>
                     <option value="INPROGRESS">In Progress</option>
                     <option value="INREVIEW">In Review</option>
-                    <option value="CLOSEDWFX">Closed & Wont Fix</option>
                     <option value="CLOSED">Closed</option>
                   </select>
                 </div>
@@ -236,6 +235,7 @@ const AddNewTicket = ({ open, setOpen }) => {
           </div>
         </form>
       </ModalWrapper>
+      <Toaster />
     </>
   );
 };
