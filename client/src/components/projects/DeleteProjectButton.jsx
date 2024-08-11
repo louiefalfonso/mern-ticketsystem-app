@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { toast } from "react-hot-toast";
-
 import Button from "../common/Button";
 import { DELETE_PROJECT } from "../../mutations/projectMutations";
 import { GET_PROJECTS } from "../../queries/projectQueries";
@@ -13,7 +12,10 @@ const DeleteProjectButton = ({ projectId }) => {
     const [deleteProject] = useMutation(DELETE_PROJECT, {
       variables: { id: projectId },
       onCompleted: () => {
-        navigate("/projects")
+        setTimeout(() => {
+          toast.success("Project Deleted");
+        }, 1000); // delay for 1 second
+        navigate("/projects");
       },
       refetchQueries: [{ query: GET_PROJECTS }],
     });

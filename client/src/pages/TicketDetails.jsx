@@ -13,9 +13,7 @@ import DeleteTicketButton from '../components/tickets/DeleteTicketButton';
 
 const TicketDetails = () => {
     const { id } = useParams();
-    const { loading, error, data } = useQuery(GET_TICKET, {
-      variables: { id },
-    });
+    const { loading, error, data } = useQuery( GET_TICKET, { variables: { id }, } );
 
     const { loading: employeesLoading, error: employeesError, data: employeesData } = useQuery(GET_EMPLOYEES);
     const { loading: projectsLoading, error: projectsError, data: projectsData } = useQuery(GET_PROJECTS);
@@ -78,8 +76,7 @@ const TicketDetails = () => {
               <p className="text-gray-900">{ticket.description}</p>
             </div>
             <div className="p-4 border-t border-gray-200">
-              Delete Button HERE
-              {/*<DeleteTicketButton ticketId={data.ticket.id} />*/}
+              <DeleteTicketButton ticketId={data.ticket.id} />
             </div>
           </div>
         </div>

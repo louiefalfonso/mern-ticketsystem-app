@@ -95,7 +95,7 @@ const ProjectDetails = () => {
           <EditProjectForm project={project} />
         </div>
         <div className="w-1/2">
-          <div className="max-w-sm mx-auto bg-white rounded-lg border w-full ">
+          <div className="mx-auto bg-white rounded-lg border w-full ">
             <div className="p-4">
               <h2 className="text-lg font-bold text-gray-900">Project ID:</h2>
               <p className="text-gray-900">{project.id}</p>
