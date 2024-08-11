@@ -24,7 +24,7 @@ const ProjectTable = () => {
                 </tr>
               </thead>
               <tbody>
-                {data.projects.slice(0, 5).map((project, index) => (
+                {data.projects.slice(0, 4).map((project, index) => (
                   <ProjectList key={index} project={project} />
                 ))}
               </tbody>
