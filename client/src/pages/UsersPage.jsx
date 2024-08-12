@@ -1,21 +1,17 @@
 import React, { useState } from "react";
-import Title from "../components/common/Title";
-import Button from "../components/common/Button";
 import { IoMdAdd } from "react-icons/io";
+import { FaTrashAlt, FaEdit } from "react-icons/fa";
 import { getInitials } from "../utils";
 import { toast } from "react-hot-toast";
 import clsx from "clsx";
-//import ConfirmatioDialog, { UserAction } from "../components/ConfirmatioDialog";
-
-import {
-  useDeleteUserMutation,
-  useGetAllUsersQuery,
-  useUserActionMutation,
-} from "../redux/slices/userApiSlice";
-import { FaTrashAlt, FaEdit } from "react-icons/fa";
 
 
-//import AddUser from "../components/AddUser";
+import ConfirmatioDialog, { UserAction } from "../components/common/ConfirmatioDialog";
+import Title from "../components/common/Title";
+import Button from "../components/common/Button";
+import { useDeleteUserMutation, useGetAllUsersQuery, useUserActionMutation, } from "../redux/slices/userApiSlice";
+
+import AddUser from "../components/common/AddUser";
 
 const UserPage = () => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -98,7 +94,7 @@ const UserPage = () => {
     <tr className="border-b border-gray-200 text-gray-600 hover:bg-gray-400/10">
       <td className="p-2">
         <div className="flex items-center gap-4">
-          <div className="w-9 h-9 rounded-full text-white flex items-center justify-center text-sm bg-emerald-500">
+          <div className="w-9 h-9 rounded-full text-white flex items-center justify-center text-sm bg-black">
             <span className="text-xs md:text-sm text-center">
               {getInitials(user.name)}
             </span>
@@ -142,17 +138,17 @@ const UserPage = () => {
 
   return (
     <>
+      <div className="flex items-center justify-between mb-4 w-full bg-white p-4 rounded shadow-sm">
+        <Title title="Admin Users" />
+        <Button
+          label="Add New User"
+          icon={<IoMdAdd className="text-lg" />}
+          className="flex flex-row-reverse gap-1 items-center bg-black text-white rounded-md 2xl:py-2.5"
+          onClick={() => setOpen(true)}
+        />
+      </div>
       <div className="w-full md:px-1 px-0 mb-6">
-        <div className="flex items-center justify-between mb-8">
-          <Title title="  Team Members" />
-          <Button
-            label="Add New User"
-            icon={<IoMdAdd className="text-lg" />}
-            className="flex flex-row-reverse gap-1 items-center bg-emerald-500 text-white rounded-md 2xl:py-2.5"
-            onClick={() => setOpen(true)}
-          />
-        </div>
-
+      
         <div className="bg-white px-2 md:px-4 py-4 shadow-md rounded">
           <div className="overflow-x-auto">
             <table className="w-full mb-5">
@@ -185,7 +181,7 @@ const UserPage = () => {
           </div>
         </div>
       </div>
-      {/*<AddUser
+      <AddUser
         open={open}
         setOpen={setOpen}
         userData={selected}
@@ -202,7 +198,7 @@ const UserPage = () => {
         open={openDialog}
         setOpen={setOpenDialog}
         onClick={deleteHandler}
-      />*/}
+      />
     </>
   );
 };

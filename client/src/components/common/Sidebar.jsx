@@ -1,6 +1,6 @@
 import React from 'react'
 import { MdDashboard, MdLogout, MdAccessAlarms } from "react-icons/md";
-import { FaUsers } from "react-icons/fa";
+import { FaUsers, FaUserCog } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { setOpenSidebar } from "../../redux/slices/authSlice";
@@ -36,7 +36,7 @@ const linkData = [
   {
     label: "Admin Users",
     link: "users",
-    icon: <FaUsers />,
+    icon: <FaUserCog />,
   },
 ];
 
@@ -69,7 +69,7 @@ const Sidebar = () => {
   };
 
   const path = location.pathname.split("/")[1];
-  const sidebarLinks = user?.isAdmin ? linkData : linkData.slice(0, 5);
+  const sidebarLinks = user?.isAdmin ? linkData : linkData.slice(0, 4);
   const closeSidebar = () => {
     dispatch(setOpenSidebar(false));
   };
