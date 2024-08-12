@@ -49,8 +49,6 @@ app.use(
 );
 
 app.use(errorHandler);
-app.use(routeNotFound);
-
 
 //log requests
 const server = app.listen(port, () =>
