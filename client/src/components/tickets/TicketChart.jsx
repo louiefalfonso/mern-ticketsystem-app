@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_TICKETS } from "../../queries/ticketQueries";
 import Spinner from "../common/Spinner";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid,Tooltip, } from "recharts";
 
 const TicketChart = () => {
+  
+  // defaultProps error from XAxis & YAxis  Display (Dev Mode Only)
+  useEffect(() => {
+    const originalConsoleError = console.error;
+    console.error = (...args) => {
+      if (typeof args[0] === "string" && /defaultProps/.test(args[0])) {
+        return;
+      }
+
+      originalConsoleError(...args);
+    };
+
+    return () => {
+      console.error = originalConsoleError;
+    };
+  }, []);
+
   const { loading, error, data } = useQuery(GET_TICKETS);
   if (loading) return <Spinner />;
   if (error) return <p>Something Went Wrong</p>;
@@ -46,7 +63,6 @@ const TicketChart = () => {
     count: groupedStatusData[status],
   }));
 
-
   // Combine data
   const combinedData = [];
   chartData.forEach((item, index) => {
@@ -59,7 +75,6 @@ const TicketChart = () => {
       combinedData.push({ name: item.status, status: item.count });
     }
   });
-
 
   return (
     <>

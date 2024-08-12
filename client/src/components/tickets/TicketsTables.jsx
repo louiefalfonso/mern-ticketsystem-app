@@ -24,7 +24,7 @@ const TicketsTables = () => {
                 </tr>
               </thead>
               <tbody>
-                {data.tickets.slice(0, 4).map((ticket, index) => (
+                {data.tickets.slice(0, 5).map((ticket, index) => (
                   <TicketList key={index} ticket={ticket} />
                 ))}
               </tbody>
