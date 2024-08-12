@@ -23,7 +23,11 @@ connectDB();
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://localhost:3001"],
+    origin: ["http://localhost:3000", 
+             "http://localhost:3001",
+             "https://mern-ticketsystem-app.onrender.com",
+             "https://mern-citecoreapp.netlify.app/"
+            ],
     methods: ["GET", "POST", "DELETE", "PUT"],
     credentials: true,
   })
