@@ -33,6 +33,11 @@ const linkData = [
     link: "employees",
     icon: <FaUsers />,
   },
+  {
+    label: "Admin Users",
+    link: "users",
+    icon: <FaUsers />,
+  },
 ];
 
 const Sidebar = () => {

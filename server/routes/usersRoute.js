@@ -1,5 +1,5 @@
 import express from "express";
-import { protectRoute } from "../middlewares/authMiddleware.js";
+import { protectRoute, isAdminRoute } from "../middlewares/authMiddleware.js";
 import {
   loginUser,
   logoutUser,
@@ -13,7 +13,7 @@ const router = express.Router();
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.post("/logout", logoutUser);
-router.get("/users", getAllUsers);
-router.put("/profile", protectRoute, updateUser);
+router.get("/users", protectRoute, isAdminRoute, getAllUsers);
+router.put("/profile", protectRoute,isAdminRoute, updateUser);
 
 export default router;

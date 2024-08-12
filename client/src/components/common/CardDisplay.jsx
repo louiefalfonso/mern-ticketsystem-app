@@ -49,7 +49,7 @@ const CardDisplay = () => {
       {
         _id: "4",
         label: "Low",
-        icon: <FaArrowsToDot />,
+        icon: <FaNewspaper />,
         bg: "bg-[#64748b]" || 0,
       },
     ];
